@@ -3,7 +3,7 @@ import zipfile
 import re
 import sys
 
-
+# This parser is to parse bugreport logs and find Bugle health information
 #unzip
 def unzip_log_file(logfile):
         zip_ref = zipfile.ZipFile(logfile, 'r')
