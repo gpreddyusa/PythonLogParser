@@ -20,6 +20,13 @@ def create_bugle_log(raw_file_path):
                                 bugle_file.write(bugle)
                 line = raw_file.readline()
 
+def get_version_info()
+def get_rcs_verbose_status()
+def get_rcs_info()
+def get_rcs_connectivity_health()
+def get_rcs_provisioning_health()
+def get_rcs_bugle_exceptions()         
+
 def main():
         #Read Arg and input to untar
         if len (sys.argv) != 2 :
