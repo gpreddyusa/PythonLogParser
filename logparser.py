@@ -24,8 +24,7 @@ def create_bugle_log(raw_file_path):
         elif re.match("(.*)(S|s)ip(.*)", bugle):
              bugle_file.write(bugle)
 
-def create_displey_log():
-   
+def get_RCS_Status_displey_log():
     bugle_file = open('bugle_log.txt', 'r')   
     RCSNOTEnabled  = "BugleRcs: MCCMNC is NOT RCS enabled"
     RCSenabled = "BugleRcs: MCCMNC is RCS enabled"
@@ -68,34 +67,56 @@ def get_rcs_provisioning_health():
 def get_rcs_verbose_status():
         bugle_file = open('bugle_log.txt', 'r')
         keyword = "V Bugle"  
-        log_file.write("\n \n RCS Bugle Verbose logs status  \n")
+        log_file.write("\n \n----- RCS Bugle Verbose logs status ------ \n")
         for line in bugle_file.readlines():
                 input = line  
                 if keyword in input: 
-                        log_file.write("\n \n Verbose is Enabled in logs   \n")
+                        log_file.write("\n RCS Verbose status :  Enabled \n")
                 else:
-                        log_file.write(" Verbose is Not Enabled in logs  \n")
+                        log_file.write(" RCS Verbose status :  Disabled  \n")
                 break
 
-def get_version_info(raw_file_path):
+def get_AM_version_info(raw_file_path):
         raw_file = open(raw_file_path, "r")
-        Packagename  = "Package [com.google.android.apps.messaging]"
-        versionName = "versionName"
-        for line in raw_file.readlines():
+        AMPackagename  = "Package [com.google.android.apps.messaging]"
+        for num,line in enumerate(raw_file, 1):
                 input = line  
-                if Packagename in input: #see if one of the words in the sentence is the word we want
+                if AMPackagename in input: #see if one of the words in the sentence is the word we want
                         log_file.write("\n--------- AM version details --------\n")
                         log_file.write(line)
-              
-
-               
-                                
-                
-
+                        lastnum = num + 10
+                        with open(raw_file_path) as fh:
+                                log_file.write(''.join(fh.readlines()[num:lastnum]))
+                                log_file.write("-----------------\n")
+                        break
+def get_CS_version_info(raw_file_path):
+        raw_file = open(raw_file_path, "r")
+        CSPackagename  = "Package [com.google.android.ims]"
+        for num,line in enumerate(raw_file, 1):
+                input = line  
+                if CSPackagename in input: #see if one of the words in the sentence is the word we want
+                        log_file.write("\n--------- CS version details --------\n")
+                        log_file.write(line)
+                        lastnum = num + 10
+                        with open(raw_file_path) as fh:
+                                log_file.write(''.join(fh.readlines()[num:lastnum]))
+                                log_file.write("-----------------\n")
+                        break
+def get_Dialer_version_info(raw_file_path):
+        raw_file = open(raw_file_path, "r")
+        DailerPackagename = "Package [com.google.android.dialer]"
+        for num,line in enumerate(raw_file, 1):
+                input = line  
+                if DailerPackagename in input: #see if one of the words in the sentence is the word we want
+                        log_file.write("\n--------- Dialer version details --------\n")
+                        log_file.write(line)
+                        lastnum = num + 10
+                        with open(raw_file_path) as fh:
+                                log_file.write(''.join(fh.readlines()[num:lastnum]))
+                                log_file.write("-----------------\n")
+                        break
 
 # def get_rcs_connectivity_health():
-
-      
 
 def main():
         #Read Arg and input to untar
@@ -108,12 +129,13 @@ def main():
     file = open("main_entry.txt", "r") 
     raw_file_name = file.readline()
     create_bugle_log(raw_file_name)
-    create_displey_log()
+    get_RCS_Status_displey_log()
     get_rcs_verbose_status()
-    get_version_info(raw_file_name)
+    get_AM_version_info(raw_file_name)
+    get_CS_version_info(raw_file_name)
+    get_Dialer_version_info(raw_file_name)
     get_rcs_bugle_exceptions()
     get_rcs_provisioning_health()
-
 
 if __name__ == "__main__":
         main()
