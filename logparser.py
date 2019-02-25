@@ -5,6 +5,7 @@ import sys
 
 # This parser is to parse bugreport logs and find Bugle health information
 #unzip
+
 log_file = open("helth_matrics.txt", "w+")
 def unzip_log_file(logfile):
         zip_ref = zipfile.ZipFile(logfile, 'r')
@@ -41,10 +42,7 @@ def get_RCS_Status_displey_log():
     if RCSNOTEnabled == 0 and RCSCount == 0:
         log_file.write("Sorry not find any RCS Status Log")
     else:
-        log_file.write("RCS Enabled and Desabled status \n")
-        log_file.write("RCS enabled "+ str(RCSCount) +" times \n")
-        log_file.write("RCS Not enabled "+ str(RCSNOTcounts) +" times \n\n")
-
+        log_file.write("RCS connectivity status: Enabled | Disabled :  "+ str(RCSCount) +" | "+ str(RCSNOTcounts) +" \n")
 def get_rcs_bugle_exceptions():
         bugle_file = open('bugle_log.txt', 'r')
         keyword = "Exception"  
@@ -67,7 +65,7 @@ def get_rcs_provisioning_health():
 def get_rcs_verbose_status():
         bugle_file = open('bugle_log.txt', 'r')
         keyword = "V Bugle"  
-        log_file.write("\n \n----- RCS Bugle Verbose logs status ------ \n")
+        log_file.write("\n \n------------> RCS Bugle Verbose logs status <----------------  \n")
         for line in bugle_file.readlines():
                 input = line  
                 if keyword in input: 
@@ -82,12 +80,12 @@ def get_AM_version_info(raw_file_path):
         for num,line in enumerate(raw_file, 1):
                 input = line  
                 if AMPackagename in input: #see if one of the words in the sentence is the word we want
-                        log_file.write("\n--------- AM version details --------\n")
+                        log_file.write("\n------------> AM version details <--------------\n")
                         log_file.write(line)
-                        lastnum = num + 10
+                        lastnum = num + 8
                         with open(raw_file_path) as fh:
-                                log_file.write(''.join(fh.readlines()[num:lastnum]))
-                                log_file.write("-----------------\n")
+                                log_file.write(''.join(fh.readlines()[lastnum]))
+                                log_file.write("--------------------------------------------------\n")
                         break
 def get_CS_version_info(raw_file_path):
         raw_file = open(raw_file_path, "r")
@@ -95,12 +93,12 @@ def get_CS_version_info(raw_file_path):
         for num,line in enumerate(raw_file, 1):
                 input = line  
                 if CSPackagename in input: #see if one of the words in the sentence is the word we want
-                        log_file.write("\n--------- CS version details --------\n")
+                        log_file.write("\n------------> CS version details <--------------\n")
                         log_file.write(line)
-                        lastnum = num + 10
+                        lastnum = num + 8
                         with open(raw_file_path) as fh:
-                                log_file.write(''.join(fh.readlines()[num:lastnum]))
-                                log_file.write("-----------------\n")
+                                log_file.write(''.join(fh.readlines()[lastnum]))
+                                log_file.write("--------------------------------------------------\n")
                         break
 def get_Dialer_version_info(raw_file_path):
         raw_file = open(raw_file_path, "r")
@@ -108,13 +106,14 @@ def get_Dialer_version_info(raw_file_path):
         for num,line in enumerate(raw_file, 1):
                 input = line  
                 if DailerPackagename in input: #see if one of the words in the sentence is the word we want
-                        log_file.write("\n--------- Dialer version details --------\n")
+                        log_file.write("\n------------> Dialer version details <-----------\n")
                         log_file.write(line)
-                        lastnum = num + 10
+                        lastnum = num + 8
                         with open(raw_file_path) as fh:
-                                log_file.write(''.join(fh.readlines()[num:lastnum]))
-                                log_file.write("-----------------\n")
+                                log_file.write(''.join(fh.readlines()[lastnum]))
+                                log_file.write("--------------------------------------------------\n")
                         break
+
 
 # def get_rcs_connectivity_health():
 
