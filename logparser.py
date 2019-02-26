@@ -120,7 +120,7 @@ def get_Dialer_version_info(raw_file_path):
 def main():
         #Read Arg and input to untar
     if len (sys.argv) != 2 :
-            print ("Usage: python ex.py PATH of LOG FILE")
+            print ("Usage: >python ex.py <PATH of LOG FILE>")
             sys.exit (1)
     program_name = sys.argv[0]
     path_to_log_file = sys.argv[1]
@@ -128,13 +128,15 @@ def main():
     file = open("main_entry.txt", "r") 
     raw_file_name = file.readline()
     create_bugle_log(raw_file_name)
-    get_RCS_Status_displey_log()
-    get_rcs_verbose_status()
-    get_AM_version_info(raw_file_name)
-    get_CS_version_info(raw_file_name)
-    get_Dialer_version_info(raw_file_name)
-    get_rcs_bugle_exceptions()
-    get_rcs_provisioning_health()
+    
+    # Log Parsing modules
+    get_RCS_Status_displey_log() # RCS connectivity status
+    get_rcs_verbose_status() # RCS Verbose status
+    get_AM_version_info(raw_file_name) # AM Version info from logs
+    get_CS_version_info(raw_file_name)  # CS version info from logs
+    get_Dialer_version_info(raw_file_name) # Dialer Version info from logs
+    get_rcs_bugle_exceptions() # Exception info from logs
+    get_rcs_provisioning_health() # Provisioning status and Evaluation from BR
 
 if __name__ == "__main__":
         main()
