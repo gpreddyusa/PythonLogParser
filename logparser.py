@@ -115,6 +115,17 @@ def get_Dialer_version_info(raw_file_path):
                         break
 
 
+def get_SMS_Success_Failed_data():
+        bugle_file = open('bugle_log.txt', 'r')
+        keyword = "V Bugle" 
+        log_file.write("------ SMS complete logs here ------- \n")
+        for line in bugle_file.readlines():
+                input = line  
+                if keyword in input: 
+                        log_file.write(line)
+
+
+
 # def get_rcs_connectivity_health():
 
 def main():
@@ -137,6 +148,7 @@ def main():
     get_Dialer_version_info(raw_file_name) # Dialer Version info from logs
     get_rcs_bugle_exceptions() # Exception info from logs
     get_rcs_provisioning_health() # Provisioning status and Evaluation from BR
+    get_SMS_Success_Failed_data() # SMS complete details form the bugreport
 
 if __name__ == "__main__":
         main()
